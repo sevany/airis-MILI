@@ -12,7 +12,7 @@ class UserProfile:
     Stores and retrieves Myra's information intelligently
     """
     
-    def __init__(self, profile_path="data/myra_profile.json"):
+    def __init__(self, profile_path="backend/data/myra_profile.json"):
         """Initialize user profile"""
         self.profile_path = profile_path
         self.profile = self._load_profile()
