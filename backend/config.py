@@ -17,7 +17,7 @@ class Config:
     
     # Ollama - Single or Multi-Node
     OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'http://localhost:11434')
-    OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'qwen2.5:235b')
+    OLLAMA_MODEL = os.getenv('OLLAMA_MODEL', 'qwen2.5:72b')
     
     # Multi-node configuration (comma-separated)
     OLLAMA_NODES_STR = os.getenv('OLLAMA_NODES', None)

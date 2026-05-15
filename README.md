@@ -7,7 +7,7 @@ Myra's private AI companion with M3GAN personality
 
 ## 🧠 Phase 1 Features
 
-✅ **Conversational Intelligence** - Qwen 2.5 235B via Ollama  
+✅ **Conversational Intelligence** - Qwen 2.5 72B via Ollama  
 ✅ **M3GAN Personality** - Protective, sharp, witty, emotionally aware  
 ✅ **Voice Output** - ElevenLabs TTS integration  
 ✅ **Persistent Memory** - SQLite conversation storage  
@@ -22,15 +22,15 @@ Myra's private AI companion with M3GAN personality
 1. **Python 3.10+**
 2. **Node.js 18+** and npm
 3. **Ollama** installed and running
-4. **Qwen 2.5 235B model** pulled in Ollama
+4. **Qwen 2.5 72B model** pulled in Ollama
 
 ### Check Ollama:
 ```bash
 # Make sure Ollama is running
 ollama list
 
-# Pull Qwen 3 235B if not already available
-ollama pull qwen2.5:235b
+# Pull Qwen 2.5 72B if not already available
+ollama pull qwen2.5:72b
 ```
 
 ---
