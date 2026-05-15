@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mic Test</title>
+</head>
+<body style="background: #000; color: #fff; padding: 40px; font-family: Arial;">
+  <h1>AIRIS Mic Test</h1>
+  
+  <button id="startBtn" style="padding: 20px 40px; font-size: 18px; background: green; color: white; border: none; cursor: pointer;">
+    START RECORDING
+  </button>
+  
+  <button id="stopBtn" style="padding: 20px 40px; font-size: 18px; background: red; color: white; border: none; cursor: pointer; margin-left: 20px;" disabled>
+    STOP RECORDING
+  </button>
+  
+  <div id="status" style="margin-top: 30px; font-size: 20px;"></div>
+  <div id="result" style="margin-top: 30px; font-size: 16px; color: #10b981;"></div>
+  
+  <script>
+    let mediaRecorder;
+    let chunks = [];
+    
+    document.getElementById('startBtn').onclick = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+        chunks = [];
+        
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) {
+            chunks.push(e.data);
+            console.log('Chunk captured:', e.data.size, 'bytes');
+          }
+        };
+        
+        mediaRecorder.onstop = async () => {
+          const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+          console.log('Total blob size:', blob.size, 'bytes');
+          
+          document.getElementById('status').innerHTML = `Recorded ${blob.size} bytes. Transcribing...`;
+          
+          // Send to backend
+          const formData = new FormData();
+          formData.append('audio', blob, 'test.webm');
+          
+          const response = await fetch('http://localhost:5000/api/stt', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.text) {
+            document.getElementById('result').innerHTML = `You said: "${result.text}"`;
+          } else if (result.error) {
+            document.getElementById('result').innerHTML = `Error: ${result.error}`;
+          }
+        };
+        
+        mediaRecorder.start(500);
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('stopBtn').disabled = false;
+        document.getElementById('status').innerHTML = 'Recording... SPEAK NOW!';
+        
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('status').innerHTML = `Error: ${error.message}`;
+      }
+    };
+    
+    document.getElementById('stopBtn').onclick = () => {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('stopBtn').disabled = true;
+      }
+    };
+  </script>
+</body>
+</html>

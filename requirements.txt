@@ -4,12 +4,18 @@
 # === Web Framework ===
 Flask==3.0.0
 flask-cors==4.0.0
+requests==2.31.0
 
 # === Ollama / LLM ===
 ollama==0.1.6
+openai-whisper==20231117
+torch==2.1.0
+torchaudio==2.1.0
 
 # === Database ===
 # SQLite is built-in to Python, no package needed
+chromadb==0.4.18
+sentence-transformers==2.2.2
 
 # === ElevenLabs TTS ===
 elevenlabs==0.2.27
@@ -22,6 +28,16 @@ requests==2.31.0
 
 # === Scheduler ===
 schedule==1.2.0
+
+# Audio Processing
+numpy==1.24.3
+soundfile==0.12.1
+librosa==0.10.1
+webrtcvad==2.0.10
+
+# Utilities
+python-dotenv==1.0.0
+ 
 
 # === Future Phase Dependencies (commented out for now) ===
 # chromadb==0.4.18        # Phase 2: Vector memory

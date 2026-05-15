@@ -97,14 +97,14 @@ class XAUUSDScheduler:
     
     def start_scheduler(self):
         """Start the scheduler (runs in background)"""
-        # Schedule daily full update at 7:00 AM
-        schedule.every().day.at("07:00").do(self.daily_update)
+        # Schedule daily full update at 9:00 AM
+        schedule.every().day.at("09:00").do(self.daily_update)
         
         # Schedule price updates every 15 minutes
         schedule.every(15).minutes.do(self.price_update)
         
         print("⏰ XAUUSD Scheduler started")
-        print("📅 Daily full updates: 7:00 AM")
+        print("📅 Daily full updates: 9:00 AM")
         print("💰 Price updates: Every 15 minutes")
         print("🔄 Running initial updates now...")
         
